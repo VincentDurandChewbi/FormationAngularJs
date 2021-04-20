@@ -102,7 +102,10 @@
             <select ng-options="epp.nom as epp.nom for epp in epaisseur" ng-model="style.borderWidth"></select>
         </div>
 
+        <button ng-click="enregistrer()">Enregistrer</button>
         <div ng-style="style">Un style modifiable par des listes déroulantes</div>
+        <div ng-bind="style | json"></div>
+        <pre ng-non-bindable>{{style}}</pre>
         {{ style}}
         </p>
 
@@ -129,6 +132,10 @@
                 { nom: "1px", value: "1px" },
                 { nom: "2px", value: "2px" },
                 { nom: "3px", value: "3px" }];
+            $scope.enregistrer = function() {
+                console.log($scope.style)
+                localStorage.setItem("style", $scope.style);
+            };
         });
 
         function logToto() {
