@@ -12,6 +12,10 @@
             color: red;
         }
 
+        .bleu {
+            color: blue;
+        }
+
         .encadre {
             color: green;
             border-color: green;
@@ -70,7 +74,37 @@
         {{ style}}
         </p>
 
+        <p>
+            <input type="checkbox" ng-model=choix5>Impair<br>
+            <input type="checkbox" ng-model=choix6>Pair<br>
+        <ul>
+            <li ng-repeat="lg in languages" , ng-class-even="{rouge: choix5}" ng-class-odd="{bleu: choix6}">
+                {{index}} {{lg}}
+            </li>
+        </ul>
+        </p>
 
+        <!-- idem avec un ng-style mais avec des menu déroulants pilotés par des tableaux -->
+
+        <p>
+        <div>
+            <label>Couleur</label>
+            <select ng-options="coul.value as coul.nom for coul in couleurs" ng-model="style.borderColor"></select>
+        </div>
+
+        <div>
+            <label>Bordure</label>
+            <select ng-options="bord.value as bord.nom for bord in bordures" ng-model="style.borderStyle"></select>
+        </div>
+
+        <div>
+            <label>Epaisseur</label>
+            <select ng-options="epp.nom as epp.nom for epp in epaisseur" ng-model="style.borderWidth"></select>
+        </div>
+
+        <div ng-style="style">Un style modifiable par des listes déroulantes</div>
+        {{ style}}
+        </p>
 
 
     </div>
@@ -80,6 +114,21 @@
             $scope.modif = false;
             $scope.member = { firstname: 'Vincent', lastname: 'Durand' };
             $scope.style = { color: 'red', borderColor: 'red', borderStyle: 'solid', borderWidth: '1px' };
+            $scope.languages = ["AngularJS", "JQuery", "PHP", "C++", "C"];
+            $scope.couleurs = [
+                { nom: "rouge", value: "red" },
+                { nom: "bleu", value: "blue" },
+                { nom: "vert", value: "green" },
+                { nom: "orange", value: "orange" },
+                { nom: "noir", value: "black" }];
+            $scope.bordures = [
+                { nom: "plein", value: "solid" },
+                { nom: "pointillé", value: "dotted" },
+                { nom: "tiret", value: "dashed" }];
+            $scope.epaisseur = [
+                { nom: "1px", value: "1px" },
+                { nom: "2px", value: "2px" },
+                { nom: "3px", value: "3px" }];
         });
 
         function logToto() {
