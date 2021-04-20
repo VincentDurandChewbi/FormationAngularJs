@@ -16,6 +16,13 @@
         <p>{{ pi }}</p>
         <p>{{ pi | number:2}}</p>
         <p>{{ pi | number:5}}</p>
+        <p>{{ montant | currency:"€ ":2}}</p>
+        <p>{{ montant | currency:"$ ":3}}</p>
+        <p>{{ texte}}</p>
+        <p>{{ texte | uppercase}}</p>
+        <p>{{ texte | lowercase}}</p>
+        <p>{{jours | json}}</p>
+        <p>{{produits | json}}</p>
 
     </div>
 
@@ -26,7 +33,7 @@
             $scope.montant = "1664.12";
             $scope.date = new Date();
             $scope.texte = "peTiT PonEy avEc uNe GroSse MarMeLadE"
-            $scope.jour = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+            $scope.jours = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
             $scope.produits = [
                 {nom: 'pomme', prix: 1.20, cat: 'fruits'},
                 {nom: 'poires', prix: 1.21, cat: 'fruits'},
