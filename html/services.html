@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+
+    <title>Services</title>
+</head>
+
+<body>
+    <div ng-app="app" ng-controller="myCtrl">
+        <p>{{ accueil }}</p>
+        <p>{{ maintenant }}</p>
+        <p>{{ nombre }}</p>
+        <p>{{ nombre2 }}</p>
+        <h4>{{ phrase }}</h4>
+        <button ng-click="stop()">Arreter le temps #DrStrange</button>
+
+    </div>
+
+    <script>
+        let app = angular.module('app', []);
+        app.controller('myCtrl', function ($scope, $interval, $timeout, dbl, proverbe) {
+            $scope.accueil = "Koukou Cevin";
+            $scope.maintenant = new Date().toLocaleTimeString();
+            $scope.nombre = 5;
+            $scope.nombre2 = dbl.calculer($scope.nombre);
+            // appel du service du proverbe
+            $scope.phrase = proverbe.afficher();
+            // appel du service $timeout
+            $timeout(function() {
+                $scope.accueil = "Angular.js et les services";
+            }, 5000);
+            // service $setInterval
+            var timer = $interval(function() {
+                $scope.maintenant = new Date().toLocaleTimeString();
+            }, 1000);
+            // on coupe le timer infini
+            $scope.stop = function() {
+                $interval.cancel(timer);
+            }
+        });
+
+        // création d'un service qui retourne le double d'un nombre
+        app.service("dbl", function () {
+            this.calculer = function (nbre) {
+                return nbre * 2;
+            }
+        });
+
+    </script>
+    <script src="../js/proverbeSvc.js"></script>
+</body>
+
+</html>
