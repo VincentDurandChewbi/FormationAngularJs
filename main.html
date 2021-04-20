@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
+    <title>Document</title>
+    <style>
+        input.ng-dirty {
+            background-color: orange;
+        }
+
+        input.ng-valid {
+            background-color: lime;
+        }
+
+        input.ng-invalid {
+            background-color: red;
+        }
+        /* .ng-empty, .ng-not-empty, .ng-touched, .ng-untouched, .ng-pending, .ng-pristine */
+
+        .even {
+            background-color: silver;
+        }
+        .odd {
+            background-color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Ici avec un ng-model on link des champs avec une variable -->
+    <!-- <div ng-app>
+        <p>Toto {{2+4}}</p>
+        <p>
+            <label>Prenom</label>
+            <input type="text" name="prenom" id="prenom" ng-model="prenom">
+            <label>Nom</label>
+            <input type="text" name="nom" id="nom" ng-model="nom">
+            <p>bonjour {{prenom}} {{nom}}</p>
+        </p>
+    </div> -->
+
+
+    <!-- Ici avec le ng-app et le ng-controller on lie la vue au controlleur js -->
+    <!-- <div ng-app="module">
+        <div ng-controller="premier">
+            <label>Nom</label>
+            <input type="text" name="name" id="name" ng-model="name">
+            <p>bonjour {{name}}</p>
+            <button ng-click="sayHello()">Bonjour</button>
+
+        </div>
+    </div>
+
+    <script>
+        let app = angular.module('module', []);
+        app.controller('premier', function($scope) {
+            $scope.name = "Cedric"
+            $scope.sayHello = function() {
+                console.log("Bonjour " + $scope.name)
+            }
+        })
+    </script> -->
+
+    <!-- Ici on initialise des variables dans un ng-init -->
+    <!-- <div ng-app="module">
+        <div ng-controller="premier" ng-init="qte=1;pu=2000;nom='pc portable'">
+            <label>Nom</label>
+            <input type="text" name="name" id="name" ng-model="name">
+            <p>bonjour {{name}}</p>
+            <button ng-click="sayHello()">Bonjour</button>
+
+            <p>{{qte}} | {{pu}} | {{nom}}</p>
+            <p>{{qte2}} | {{pu2}} | {{nom2}}</p>
+
+        </div>
+    </div>
+
+    <script>
+        let app = angular.module('module', []);
+        app.controller('premier', function($scope) {
+            $scope.name = "Cedric"
+            $scope.qte2 = "200"
+            $scope.pu2 = "4000"
+            $scope.nom2 = "Yoyoyo"
+            $scope.sayHello = function() {
+                console.log("Bonjour " + $scope.name)
+            }
+        })
+    </script> -->
+
+    <div ng-app="app">
+        <div ng-controller="myCtrl">
+            <!-- novalidate pour éviter la soummission du formulaire par le navigteur -->
+            <form name="monForm" novalidate>
+                <p>
+                    <label>Email:</label>
+                    <input type="email" name="mail" id="mail" ng-model="adrMail">
+                </p>
+                <p>
+                    <label>Sexe:</label>
+                    <input type="radio" name="sexe" id="sexe" ng-model="sexe" value="h">Homme<br>
+                    <input type="radio" name="sexe" id="sexe" ng-model="sexe" value="f">Femme<br>
+                </p>
+
+                <p>
+                    <label>Nom:</label>
+                    <input type="text" name="nom" id="nom" ng-model="nom" ng-minlength="2" ng-maxlength="6"
+                        ng-pattern="/^[a-z]+$/" ng-required="true">
+                    <!-- Sans utilisation de ngMessages -->
+                    <!-- {{monForm.nom.$error}} -->
+                    <!-- Avec utilisatino de ngMessages -->
+                <div ng-messages="monForm.nom.$error" multiple>
+                    <p ng-message="required">Champs obligatoire</p>
+                    <p ng-message="minlength">Il faut au moins 2 caractères</p>
+                    <p ng-message="maxlength">Il faut moins de 6 caractères</p>
+                    <p ng-message="pattern">Il faut uniquement des minuscules</p>
+
+                    <!-- <ul ng-messages="monForm.nom.$error" multiple>
+                        <li ng-message="required">Champs obligatoire</li>
+                        <li ng-message="minlength">Il faut au moins 2 caractères</li>
+                        <li ng-message="maxlength">Il faut moins de 6 caractères</li>
+                        <li ng-message="pattern">Il faut uniquement des minuscules</li>
+                    </ul> -->
+                </div>
+                </p>
+                <p>
+                    <button type="submit">Envoyer</button>
+                </p>
+                <!-- ng-show affiche uniquement qi condition vraie -->
+                <span ng-show="monForm.mail.$error.email && monForm.mail.$touched">
+                    Adresse mail invalide
+                    {{ monForm.mail.$error }}
+                </span>
+                <!-- On ne cré même pas le bloc si la conditon n'est pas valide-->
+                <span ng-if="monForm.mail.$error.email && monForm.mail.$touched">
+                    Adresse mail invalide
+                    {{ monForm.mail.$error }}
+                </span>
+                <h3>Champs:</h3>
+                <p>Valid: {{monForm.mail.$valid}} <br>true si saisie valide</p><br>
+                <p>Invalid: {{monForm.mail.$invalid}} <br>true si saisie non valide</p><br>
+                <p>Dirty: {{monForm.mail.$dirty}} <br>true si valeur modifiée</p><br>
+                <p>Touched: {{monForm.mail.$touched}} <br>true si champs à eu le focus</p><br>
+                <p>Untouched: {{monForm.mail.$untouched}} <br>true si champs n'a jamais eu le focus</p><br>
+                <p>Pristine: {{monForm.mail.$pristine}} <br>true si champs n'a pas été modifié</p><br>
+                <h3>Formulaire</h3>
+                <p>Valid: {{monForm.$valid}} <br>true si saisie valide</p><br>
+                <p>Invalid: {{monForm.$invalid}} <br>true si saisie non valide</p><br>
+                <p>Dirty: {{monForm.$dirty}} <br>true si valeur modifiée</p><br>
+                <p>Pristine: {{monForm.$pristine}} <br>true si champs n'a pas été modifié</p><br>
+                <p>Submitted: {{monForm.$submitted}} <br>true si champs n'a pas été modifié</p><br>
+
+                <p>
+                <ul>
+                    <li ng-repeat="elem in tab"> {{elem}}</li>
+                </ul>
+                </p>
+
+            </form>
+
+            <table>
+                <tr>
+                    <th>Langage</th>
+                    <th>Année</th>
+                    <th>Index</th>
+                    <th>Premier?</th>
+                    <th>Ni premier ni dernier?</th>
+                    <th>Dernier?</th>
+                    <th>Pair?</th>
+                    <th>Impair?</th>
+                </tr>
+                <!-- "$even?'even':'odd'"  Ici on a une condition ternaire sur le choix de la classe css à utiliser -->
+                <tr ng-repeat="lng in languages" ng-class="$even?'even':'odd'">
+                    <td>{{ lng.nom }}</td>
+                    <td>{{ lng.annee }}</td>
+                    <td>{{ $index }}</td>
+                    <td>{{ $first }}<span ng-show="{{$first}}">C'est le premier</span></td>
+                    <td>{{ $middle }}</td>
+                    <td>{{ $last }}<span ng-show="{{$last}}">C'est le premier</span></td>
+                    <td>{{ $even }}</td>
+                    <td>{{ $odd }}</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+    <script>
+
+
+        let app = angular.module('app', ['ngMessages']);
+        app.controller('myCtrl', function ($scope) {
+            $scope.adrMail = "vincent.durand@gmail.com";
+            $scope.nom = "";
+            $scope.retour = null;
+            $scope.tab = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            $scope.languages = [
+                { nom: 'Angular', annee: '2009' },
+                { nom: 'jQuery', annee: '2006' },
+                { nom: 'PHM', annee: '1994' },
+                { nom: 'C++', annee: '1983' },
+                { nom: 'C', annee: '1972' }
+            ];
+        });
+    </script>
+
+</body>
+
+</html>

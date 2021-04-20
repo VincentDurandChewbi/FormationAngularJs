@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <title>Document</title>
+    <style>
+        .rouge {
+            color: red;
+        }
+
+        .encadre {
+            color: green;
+            border-color: green;
+            border-width: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <div ng-app="app" ng-controller="myCtrl">
+        <label>Modifier</label>
+        <input type="checkbox" ng-model="modif">
+        <div ng-switch on="modif">
+            <div ng-switch-when="false">
+                Nom: {{member.firstname}} <br>
+                Prenom: {{member.lastname}} <br>
+            </div>
+            <div ng-switch-when="true">
+                <label>Prenom :</label>
+                <input type="text" ng-model="member.firstname">
+                <label>Nom :</label>
+                <input type="text" ng-model="member.lastname">
+            </div>
+        </div>
+
+        <p>
+            <input type="checkbox" ng-model="choix0">Afficher<br>
+        <div ng-hide="choix0">Version cachée</div>
+        <div ng-show="choix0">Version normale</div>
+        </p>
+
+        <p>
+            <input type="checkbox" ng-model="choix1">Rouge<br>
+            <input type="checkbox" ng-model="choix2">Encadré<br>
+        <div ng-class="{ rouge: choix1, encadre: choix2 }">Ceci est un texte au style modifiable</div>
+        </p>
+
+        <p>
+            <input type="checkbox" ng-model="choix3">Désactiver<br>
+            <button ng-disabled="choix3" onclick="logToto()">Un bouton</button>
+
+        </p>
+
+        <p>
+            <input type="checkbox" ng-model="choix4">Bloquer<br>
+            <input type="text" ng-readonly="choix4" value="lecture seule">
+        </p>
+
+        <p>
+            <label>Couleur: </label>
+            <input type="text" ng-model="style.color"><br>
+            <label>Bordure: </label>
+            <input type="text" ng-model="style.borderColor"><br>
+
+        <div ng-style="style">Un style modifiable par un texte</div>
+        {{ style}}
+        </p>
+
+
+
+
+    </div>
+    <script>
+        let app = angular.module('app', []);
+        app.controller('myCtrl', function ($scope) {
+            $scope.modif = false;
+            $scope.member = { firstname: 'Vincent', lastname: 'Durand' };
+            $scope.style = { color: 'red', borderColor: 'red', borderStyle: 'solid', borderWidth: '1px' };
+        });
+
+        function logToto() {
+            console.log("toto");
+        }
+    </script>
+</body>
+
+
+
+</html>
