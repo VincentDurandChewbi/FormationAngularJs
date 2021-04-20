@@ -11,7 +11,7 @@
 <body>
     
     <div ng-app="app" ng-controller="myCtrl">
-
+        <!-- filtres -->
         <p>Aujourd'hui, nouis sommes le {{date | date:'dd/MM/yyyy HH:mm'}}</p>
         <p>{{ pi }}</p>
         <p>{{ pi | number:2}}</p>
@@ -24,6 +24,35 @@
         <p>{{jours | json}}</p>
         <p>{{produits | json}}</p>
 
+        <!-- tris -->
+        <p>
+            <input type="text" ng-model="src">
+            <ul>
+                <li ng-repeat="jour in jours | filter:src">
+                    {{ jour }}
+                </li>
+            </ul>
+            <p>{{ jours | filter:"r"}}</p>
+            <p>{{ jours | filter:"a"}}</p>
+            <p>{{ jours | filter:"edi"}}</p>
+            <!-- ordre croissant -->
+            <p>{{ produits | orderBy:"nom"}}</p>
+            <!-- ordre décroissant -->
+            <p>{{ produits | orderBy:"-nom"}}</p>
+        </p>
+
+        <!-- tris personnalisés -->
+        <p>
+            <button ng-click="tripar('nom')">Nom</button>
+            <button ng-click="tripar('prix')">Prix</button>
+            <button ng-click="tripar('cat')">Catégorie</button>
+            <ul>
+                <li ng-repeat="prod in produits | orderBy:monTri:reverse">
+                    {{ prod.nom }}: {{ prod.prix | currency:'€ '}} ({{ prod.cat}})
+                </li>
+            </ul>
+
+        </p>
     </div>
 
     <script>
@@ -42,7 +71,17 @@
                 {nom: 'poireaux', prix: .70, cat: 'légumes'},
                 {nom: 'mangues', prix: 2.50, cat: 'fruits'},
             ]
+            $scope.reverse = false;
+            // fonctions
+
+            $scope.tripar = function(ordre) {
+                $scope.monTri = ordre;
+                $scope.reverse = !$scope.reverse;
+            }
+
         });
+
+
 
     </script>
 </body>
