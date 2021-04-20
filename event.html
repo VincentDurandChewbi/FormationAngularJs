@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
+    <title>Document</title>
+    <style>
+        #coords {
+            width: 100%;
+            height: 50vh;
+            border: 1px solid silver;
+        }
+    </style>
+</head>
+
+<body>
+    <div ng-app="app" ng-controller="myCtrl">
+
+        <p>
+            <button ng-click="afficher()">Afficher</button>
+        </p>
+        <p>
+            <button ng-dblclick="afficher2()">Afficher aussi</button>
+        </p>
+        <div id="coords" ng-mousemove="coords($event)">Mouse Over 2</div>
+        <h2>Coordonnées: {{ x + ', ' + y }}</h2>
+
+        <div ng-copy="couper($event)">Kevin est gentil mais Vincent l'est encore plus</div>
+
+        <!-- Comme élement E -->
+        <ma-directive-a-moi></ma-directive-a-moi>
+        <!-- Comme attribut A -->
+        <div ma-directive-a-moi></div>
+    </div>
+    <script>
+        let app = angular.module('app', []);
+        app.controller('myCtrl', function ($scope) {
+            $scope.afficher = function () {
+                alert("Bonjour");
+            }
+            $scope.afficher2 = function () {
+                alert("Yo!");
+            }
+            $scope.coords = function (e) {
+                $scope.x = e.clientX;
+                $scope.y = e.clientY;
+            }
+            $scope.couper = function (txt) {
+                console.log(txt)
+            }
+        });
+        // Directive perso
+        app.directive('maDirectiveAMoi', function () {
+            return {
+                // E : comme élement, A : comme attribut
+                restrict: "EA",
+                template: "<h4>Ceci est ma directive rien qu'a moi, et à toi un peu aussi</h4>"
+                // templateUrl : "../directives/madirective.html"
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>
