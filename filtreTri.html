@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    
+    <div ng-app="app" ng-controller="myCtrl">
+
+        <p>Aujourd'hui, nouis sommes le {{date | date:'dd/MM/yyyy HH:mm'}}</p>
+        <p>{{ pi }}</p>
+        <p>{{ pi | number:2}}</p>
+        <p>{{ pi | number:5}}</p>
+
+    </div>
+
+    <script>
+        let app = angular.module('app', []);
+        app.controller('myCtrl', function ($scope) {
+            $scope.pi = Math.PI;
+            $scope.montant = "1664.12";
+            $scope.date = new Date();
+            $scope.texte = "peTiT PonEy avEc uNe GroSse MarMeLadE"
+            $scope.jour = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+            $scope.produits = [
+                {nom: 'pomme', prix: 1.20, cat: 'fruits'},
+                {nom: 'poires', prix: 1.21, cat: 'fruits'},
+                {nom: 'bananes', prix: 1.12, cat: 'fruits'},
+                {nom: 'laitues', prix: 0.99, cat: 'légumes'},
+                {nom: 'poireaux', prix: .70, cat: 'légumes'},
+                {nom: 'mangues', prix: 2.50, cat: 'fruits'},
+            ]
+        });
+
+    </script>
+</body>
+</html>
