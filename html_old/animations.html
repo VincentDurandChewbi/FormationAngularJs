@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-animate.js"></script>
+    <title>Animations</title>
+    <style>
+        #contenu {
+            border: 1px solid silver;
+            margin: 10px auto;
+            width: 50%;
+            padding: 5px;
+            font-size: 1.5em;
+        }
+
+        .exemple {
+            transition: all linear 0.5s;
+        }
+
+        .exemple.ng-hide{
+            opacity: 0;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div ng-app="app" ng-controller="myCtrl">
+
+        <div>
+            <label>Afficher</label>
+            <input type="checkbox" ng-model="checked">
+            <div id="contenu" class="exemple" ng-show="checked">
+                Hodor? Hodor? Hodor, hodor, hodor hodor. Hodor? Hodor, hodor. Hodor. Hodor.
+                <br>
+                Hodor hodor HODOR! Hodor. Hodor, hodor. Hodor. Hodor, hodor. Hodor. Hodor. Hodor hodor HODOR! Hodor.
+                Hodor... Hodor hodor. Hodor, hodor. Hodor. Hodor! Hodor hodor. Hodor! Hodor hodor. Hodor? Hodor? Hodor,
+                hodor, hodor hodor. HODOR HODOR!
+                <br>
+                HODOR? Hodor, hodor. Hodor. Hodor. Hodor hodor! Hodor, hodor. Hodor. Hodor... Hodor hodor. Hodor...
+                Hodor hodor. Hodor hodor! Hodor, hodor, hodor hodor. Hodor, hodor, hodor hodor.
+                <br>
+                HODOR? HODOR? HODOR? Hodor? Hodor! Hodor hodor. Hodor, hodor. Hodor. Hodor. HODOR hodor, hodor. Hodor
+                hodor. Hodor, hodor, hodor hodor. Hodor hodor! Hodor, hodor, hodor hodor. Hodor... Hodor hodor. HODOR
+                hodor, hodor. HODOR hodor, hodor. Hodor hodor HODOR! Hodor.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let app = angular.module('app', ["ngAnimate"]);
+        app.controller('myCtrl', function ($scope) {
+            $scope.checked = true;
+        })
+    </script>
+</body>
+
+</html>

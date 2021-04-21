@@ -25,14 +25,17 @@ app.config(function($routeProvider){
         templateUrl: "../templates/p4.html",
         controller: "p4Ctrl"
     })
+    // Page d'accueil de la boutique, affichagfe des catégories
     .when("/boutique",{
         templateUrl: "../templates/boutique.html",
         controller: "boutiqueCtrl"
     })
+    // affichage des produits de la catégorie choisie
     .when("/boutique/:cat",{
         templateUrl: "../templates/categorie.html",
         controller: "categorieCtrl"
     })
+    // affichage du produit choisi
     .when("/boutique/:cat/:produit",{
         templateUrl: "../templates/produit.html",
         controller: "produitCtrl"

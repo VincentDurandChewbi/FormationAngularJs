@@ -1,0 +1,13 @@
+<label>Produits :</label>
+<ul>
+    <li ng-repeat="prod in produits" ng-click="toProduit(prod)">{{prod.nom}}</li>
+</ul>
+
+<div ng-repeat="prod in produits" class="card" style="width: 18rem;">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{prod.nom}}</h5>
+      <p class="card-text">{{prod.description}}</p>
+      <a ng-click="toProduit(prod)" class="btn btn-primary">Détail</a>
+    </div>
+  </div>
