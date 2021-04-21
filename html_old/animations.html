@@ -13,12 +13,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-animate.js"></script>
     <title>Animations</title>
     <style>
-        #contenu {
+        #contenu, #contenu2, #contenu3 {
             border: 1px solid silver;
             margin: 10px auto;
             width: 50%;
             padding: 5px;
-            font-size: 1.5em;
+            font-size: 0.8em;
         }
 
         .exemple {
@@ -29,16 +29,107 @@
             opacity: 0;
         }
 
+        .exemple2 {
+            transition: all linear 0.5s;
+        }
+
+        .exemple2.ng-show{
+            transform: translate(500px);
+        }
+
+        .exemple2.ng-hide{
+            transform: translate(-500px);
+        }
+
+        .exemple3 {
+            transition: all linear 0.5s;
+        }
+
+        .exemple3.ng-show{
+            animation-duration: 2s;
+            animation-name: slidein;
+        }
+
+        .exemple3.ng-hide{
+            animation-duration: 2s;
+            animation-name: slideout;
+        }
+
+        @keyframes slidein {
+            from{
+                width: 50%;
+                height: 100%;
+                opacity: 0;
+            }
+
+            to{
+                width: 0%;
+                height: 0%;
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideout {
+            to{
+                width: 50%;
+                height: 100%;
+                opacity: 0;
+            }
+
+            from{
+                width: 0%;
+                height: 0%;
+                opacity: 1;
+            }
+        }
+
     </style>
 </head>
 
 <body>
-    <div ng-app="app" ng-controller="myCtrl">
+    <div ng-app="app" ng-controller="myCtrl" ng-cloak>
 
         <div>
             <label>Afficher</label>
             <input type="checkbox" ng-model="checked">
             <div id="contenu" class="exemple" ng-show="checked">
+                Hodor? Hodor? Hodor, hodor, hodor hodor. Hodor? Hodor, hodor. Hodor. Hodor.
+                <br>
+                Hodor hodor HODOR! Hodor. Hodor, hodor. Hodor. Hodor, hodor. Hodor. Hodor. Hodor hodor HODOR! Hodor.
+                Hodor... Hodor hodor. Hodor, hodor. Hodor. Hodor! Hodor hodor. Hodor! Hodor hodor. Hodor? Hodor? Hodor,
+                hodor, hodor hodor. HODOR HODOR!
+                <br>
+                HODOR? Hodor, hodor. Hodor. Hodor. Hodor hodor! Hodor, hodor. Hodor. Hodor... Hodor hodor. Hodor...
+                Hodor hodor. Hodor hodor! Hodor, hodor, hodor hodor. Hodor, hodor, hodor hodor.
+                <br>
+                HODOR? HODOR? HODOR? Hodor? Hodor! Hodor hodor. Hodor, hodor. Hodor. Hodor. HODOR hodor, hodor. Hodor
+                hodor. Hodor, hodor, hodor hodor. Hodor hodor! Hodor, hodor, hodor hodor. Hodor... Hodor hodor. HODOR
+                hodor, hodor. HODOR hodor, hodor. Hodor hodor HODOR! Hodor.
+            </div>
+        </div>
+
+        <div>
+            <label>Afficher</label>
+            <input type="checkbox" ng-model="checked2">
+            <div id="contenu2" class="exemple2" ng-show="checked2">
+                Hodor? Hodor? Hodor, hodor, hodor hodor. Hodor? Hodor, hodor. Hodor. Hodor.
+                <br>
+                Hodor hodor HODOR! Hodor. Hodor, hodor. Hodor. Hodor, hodor. Hodor. Hodor. Hodor hodor HODOR! Hodor.
+                Hodor... Hodor hodor. Hodor, hodor. Hodor. Hodor! Hodor hodor. Hodor! Hodor hodor. Hodor? Hodor? Hodor,
+                hodor, hodor hodor. HODOR HODOR!
+                <br>
+                HODOR? Hodor, hodor. Hodor. Hodor. Hodor hodor! Hodor, hodor. Hodor. Hodor... Hodor hodor. Hodor...
+                Hodor hodor. Hodor hodor! Hodor, hodor, hodor hodor. Hodor, hodor, hodor hodor.
+                <br>
+                HODOR? HODOR? HODOR? Hodor? Hodor! Hodor hodor. Hodor, hodor. Hodor. Hodor. HODOR hodor, hodor. Hodor
+                hodor. Hodor, hodor, hodor hodor. Hodor hodor! Hodor, hodor, hodor hodor. Hodor... Hodor hodor. HODOR
+                hodor, hodor. HODOR hodor, hodor. Hodor hodor HODOR! Hodor.
+            </div>
+        </div>
+        <div>
+            <label>Afficher</label>
+            <input type="checkbox" ng-model="checked3">
+            <div id="contenu3" class="exemple3" ng-show="checked3">
                 Hodor? Hodor? Hodor, hodor, hodor hodor. Hodor? Hodor, hodor. Hodor. Hodor.
                 <br>
                 Hodor hodor HODOR! Hodor. Hodor, hodor. Hodor. Hodor, hodor. Hodor. Hodor. Hodor hodor HODOR! Hodor.
@@ -59,6 +150,8 @@
         let app = angular.module('app', ["ngAnimate"]);
         app.controller('myCtrl', function ($scope) {
             $scope.checked = true;
+            $scope.checked2 = true;
+            $scope.checked3 = true;
         })
     </script>
 </body>
