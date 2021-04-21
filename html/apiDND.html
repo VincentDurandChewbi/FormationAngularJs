@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <title>Donjon et dragon</title>
+</head>
+
+<body>
+    <div ng-app="app" ng-controller="myCtrl">
+
+        <p ng-if="classes">
+            {{classes}}
+        </p>
+
+    </div>
+
+    <script>
+        let app = angular.module('app', []);
+        app.controller('myCtrl', function ($scope, $http) {
+            $scope.classes = false;
+
+            $scope.getClasses = function () {
+
+                $http({
+                    method: "GET",
+                    url: "https://www.dnd5eapi.co/api/classes",
+                    params: {}
+                })
+
+                    // $http.get("http://api.frankfurter.app/latest?from=EUR&to=USD")
+                    .then(function (response) {
+                        console.log(response);
+                        $scope.classes = response.data;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            };
+
+            $scope.rechercher = function () {
+
+                $http({
+                    method: "GET",
+                    url: "https://geo.api.gouv.fr/communes",
+                    params: { codePostal: $scope.codepostal }
+                })
+
+                    .then(function (retour) {
+                        console.log(retour);
+                        $scope.villes = retour.data;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>
