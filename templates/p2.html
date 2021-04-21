@@ -1,7 +1,7 @@
 <!-- liste de prénoms, avec un lien vers une page p3 qui dit bonjour au prénom cliqué -->
 <ul>
     <li ng-repeat="prenom in prenoms">
-        <a ng-href="#/p3/prenom">
+        <a ng-href="#/p3/{{prenom}}">
             {{ prenom }}
         </a>
     </li>
