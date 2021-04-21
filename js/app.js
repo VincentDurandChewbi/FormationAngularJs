@@ -21,6 +21,10 @@ app.config(function($routeProvider){
         templateUrl: "../templates/p3.html",
         controller: "p3Ctrl"
     })
+    .when("/p4/:categorie/:scat/:prod",{
+        templateUrl: "../templates/p4.html",
+        controller: "p4Ctrl"
+    })
     .otherwise({
         redirectTo: "/"
     });
