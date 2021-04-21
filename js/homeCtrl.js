@@ -6,5 +6,4 @@ app.controller("homeCtrl", function($scope, $location) {
         //redirection vers p1
         $location.path("/p1")
     }
-    
 });

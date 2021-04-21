@@ -1,5 +1,15 @@
 <!-- liste de prénoms, avec un lien vers une page p3 qui dit bonjour au prénom cliqué -->
 <ul>
     <li ng-repeat="prenom in prenoms">
-        <a href="#/p3"></a>{{prenom}}</li>
+        <a ng-href="#/p3/prenom">
+            {{ prenom }}
+        </a>
+    </li>
+</ul>
+
+<!-- idem avec une fonction qui appeklle alpage p3 en lui passant le prénom -->
+<ul>
+    <li ng-repeat="prenom in prenoms" ng-click="versP3(prenom)">
+        {{ prenom }}
+    </li>
 </ul>

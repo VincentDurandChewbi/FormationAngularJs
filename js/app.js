@@ -13,6 +13,14 @@ app.config(function($routeProvider){
         templateUrl: "../templates/p1.html",
         controller: "p1Ctrl"
     })
+    .when("/p2",{
+        templateUrl: "../templates/p2.html",
+        controller: "p2Ctrl"
+    })
+    .when("/p3/:prenom",{
+        templateUrl: "../templates/p3.html",
+        controller: "p3Ctrl"
+    })
     .otherwise({
         redirectTo: "/"
     });
