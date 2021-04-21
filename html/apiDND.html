@@ -13,8 +13,44 @@
     <div ng-app="app" ng-controller="myCtrl">
 
         <p ng-if="classes">
-            {{classes}}
+        <ul>
+            <li ng-repeat="class in classes.results" ng-click="afficheClasse(class.index)">{{class.name}}</li>
+        </ul>
         </p>
+
+        <div ng-if="detail">
+            <p>
+                Hit Die : {{detail.hit_die}}
+
+            </p>
+
+            <p>
+                Compétences :
+            <ul>
+                <li ng-repeat="comp in detail.proficiencies">
+                    {{comp.name}}
+                </li>
+            </ul>
+            </p>
+
+
+            <p>
+                Compétences au choix : {{detail.proficiency_choices[0].choose}}
+            <ul>
+                <li ng-repeat="pro in detail.proficiency_choices[0].from" ng-click=getComp(pro.url)>
+                    {{pro.name}}
+                    <pre ng-if="compDetail && pro.index == compDetail.index">{{compDetail | json}}</pre>
+                </li>
+            </ul>
+            </p>
+
+
+
+
+
+            <!-- <pre>{{detail | json}}</pre> -->
+
+        </div>
 
     </div>
 
@@ -22,7 +58,8 @@
         let app = angular.module('app', []);
         app.controller('myCtrl', function ($scope, $http) {
             $scope.classes = false;
-
+            $scope.detail = false;
+            $scope.compDetail = false;
             $scope.getClasses = function () {
 
                 $http({
@@ -41,22 +78,35 @@
                     })
             };
 
-            $scope.rechercher = function () {
+            $scope.afficheClasse = function (id) {
+                // $http({
+                //     method: "GET",
+                //     url: "https://www.dnd5eapi.co/api/classes/",
+                //     params: {index: id}
+                // })
 
-                $http({
-                    method: "GET",
-                    url: "https://geo.api.gouv.fr/communes",
-                    params: { codePostal: $scope.codepostal }
-                })
-
-                    .then(function (retour) {
-                        console.log(retour);
-                        $scope.villes = retour.data;
+                $http.get("https://www.dnd5eapi.co/api/classes/" + id)
+                    .then(function (response) {
+                        console.log(response);
+                        $scope.detail = response.data;
                     })
                     .catch(function (error) {
                         console.log(error);
                     })
             }
+
+            $scope.getComp = function(url) {
+                $http.get("https://www.dnd5eapi.co" + url)
+                    .then(function (response) {
+                        console.log(response);
+                        $scope.compDetail = response.data;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            }
+
+            $scope.getClasses()
 
         });
     </script>
