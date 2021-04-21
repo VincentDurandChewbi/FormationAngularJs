@@ -44,12 +44,19 @@
             </ul>
             </p>
 
-
-
-
-
             <!-- <pre>{{detail | json}}</pre> -->
 
+        </div>
+
+        <div ng-if="monsters">
+            <ul>
+                <!-- le limitTo permet la pagination limitTo:20:50 signifie affiche 20 résultats offset 50 (à partir du 50ème) -->
+                <li ng-repeat="monster in monsters.results | limitTo:20:pageOffset">
+                    {{monster.name}}
+                </li>
+            </ul>
+            <button ng-if="pageOffset > 0" ng-click="previous()">Previous</button>
+            <button ng-click="next()">Next</button>
         </div>
 
     </div>
@@ -60,6 +67,23 @@
             $scope.classes = false;
             $scope.detail = false;
             $scope.compDetail = false;
+            $scope.monsters = false;
+            $scope.pageOffset = 0;
+            $scope.pageLimit = 0;
+            $scope.next = function() {
+                if ($scope.pageOffset + 20 <=  $scope.pageLimit){
+                    $scope.pageOffset += 20
+                }
+            }
+
+            $scope.previous = function() {
+                if ($scope.pageOffset - 20 >= 0){
+                    $scope.pageOffset -= 20
+                }
+            }
+
+
+
             $scope.getClasses = function () {
 
                 $http({
@@ -95,7 +119,7 @@
                     })
             }
 
-            $scope.getComp = function(url) {
+            $scope.getComp = function (url) {
                 $http.get("https://www.dnd5eapi.co" + url)
                     .then(function (response) {
                         console.log(response);
@@ -106,7 +130,28 @@
                     })
             }
 
+            $scope.getMonsters = function () {
+
+
+                $http({
+                    method: "GET",
+                    url: "https://www.dnd5eapi.co/api/monsters",
+                    params: {}
+                })
+
+                    // $http.get("http://api.frankfurter.app/latest?from=EUR&to=USD")
+                    .then(function (response) {
+                        console.log(response);
+                        $scope.monsters = response.data;
+                        $scope.pageLimit = response.data.count;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            };
+
             $scope.getClasses()
+            $scope.getMonsters();
 
         });
     </script>
