@@ -19,11 +19,39 @@
         <h4>{{ phrase }}</h4>
         <button ng-click="stop()">Arreter le temps #DrStrange</button>
 
+        <br>
+        <br>
+
+        <label>Catégories :</label>
+        <ul>
+            <li ng-repeat="cat in categories">{{cat}}</li>
+        </ul>
+        <br>
+        <label>Liste des fruits :</label>
+        <ul>
+            <li ng-repeat="prod in produits">{{prod.id}} : {{prod.nom}}</li>
+        </ul>
+        <br>
+        <label>Produit avec l'id 2 :</label>
+        <ul>
+            <li ng-repeat="(n,p) in produit2"><strong>{{ n | uppercase}}</strong> : {{ p }}</li>
+        </ul>
+        <br>
+        <label>Produit avec l'id 4 :</label>
+        <ul>
+            <li ng-repeat="(n,p) in produit4"><strong>{{ n | uppercase}}</strong> : {{ p }}</li>
+        </ul>
+        <br>
+        <label>Produit avec l'id 6 :</label>
+        <ul>
+            <li ng-repeat="(n,p) in produit6"><strong>{{ n | uppercase}}</strong> : {{ p }}</li>
+        </ul>
+
     </div>
 
     <script>
         let app = angular.module('app', []);
-        app.controller('myCtrl', function ($scope, $interval, $timeout, dbl, proverbe) {
+        app.controller('myCtrl', function ($scope, $interval, $timeout, dbl, proverbe, produits) {
             $scope.accueil = "Koukou Cevin";
             $scope.maintenant = new Date().toLocaleTimeString();
             $scope.nombre = 5;
@@ -42,6 +70,15 @@
             $scope.stop = function() {
                 $interval.cancel(timer);
             }
+
+
+
+            $scope.categories = produits.listerLesCategories();
+            $scope.produits = produits.listerLesProduitsDUneCatégories("fruits");
+            $scope.produit2 = produits.getProduct(2);
+            $scope.produit4 = produits.getProduct(4);
+            $scope.produit6 = produits.getProduct(6);
+
         });
 
         // création d'un service qui retourne le double d'un nombre
@@ -53,6 +90,7 @@
 
     </script>
     <script src="../js/proverbeSvc.js"></script>
+    <script src="../js/produitsSvc.js"></script>
 </body>
 
 </html>
