@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,35 +8,88 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
     <title>API</title>
 </head>
+
 <body>
 
     <div ng-app="app" ng-controller="myCtrl">
 
-<p>
-    <button ng-click="avenir()">Demande à Nostradamus</button>
-    <p ng-if="reponse">
+        <p>
+            <button ng-click="avenir()">Demande à Nostradamus</button>
+        <p ng-if="reponse">
         <h1>{{ reponse.answer | uppercase }}</h1>
         <img ng-src="{{ reponse.image}}" />
-    </p>
-</p>
+        </p>
+
+        <p>
+        <h2>Conversion € -> $</h2>
+        <!-- ng-blur -> perte de focus -->
+        <input type="number" ng-blur="convertir()" ng-model="euro"><br>
+        <span ng-if="change">{{change.rates.USD | currency:"$ ":2}}</span>
+        </p>
+
+        <p>
+        <h2>Code postal</h2>
+        <!-- ng-blur -> perte de focus -->
+        <input type="text" ng-blur="rechercher()" ng-model="codepostal"><br>
+        <p ng-if="villes">{{ villes }}</p>
+        </p>
+        </p>
 
     </div>
-    
+
     <script>
         let app = angular.module('app', []);
         app.controller('myCtrl', function ($scope, $http) {
             $scope.reponse = false;
-            $scope.avenir = function() {
+            $scope.monnaie = "USD"
+            $scope.avenir = function () {
                 $http.get("https://yesno.wtf/api")
-                .then(function(response) {
-                    console.log(response);
-                    $scope.reponse = response.data;
-                })
-                .catch(function(error){
-                    console.log(error);
-                })
+                    .then(function (response) {
+                        console.log(response);
+                        $scope.reponse = response.data;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
             };
+
+            $scope.convertir = function () {
+
+                $http({
+                    method: "GET",
+                    url: "http://api.frankfurter.app/latest",
+                    params: { from: "EUR", to: $scope.monnaie, amount: $scope.euro }
+                })
+
+                    // $http.get("http://api.frankfurter.app/latest?from=EUR&to=USD")
+                    .then(function (conv) {
+                        console.log(conv);
+                        $scope.change = conv.data;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            };
+
+            $scope.rechercher = function () {
+
+                $http({
+                    method: "GET",
+                    url: "https://geo.api.gouv.fr/communes",
+                    params: { codePostal: $scope.codepostal }
+                })
+
+                    .then(function (retour) {
+                        console.log(retour);
+                        $scope.villes = retour.data;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            }
+
         });
-        </script>
+    </script>
 </body>
+
 </html>
