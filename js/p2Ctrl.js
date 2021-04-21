@@ -1,4 +1,4 @@
-// Controleur de la page d'accueil
+// Controleur de la page p2
 // $location est en lien avec le système de routage (redirection par ex)
 app.controller("p2Ctrl", function($scope, $location) {
     $scope.prenoms = [

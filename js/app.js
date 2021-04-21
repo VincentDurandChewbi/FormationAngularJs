@@ -25,6 +25,18 @@ app.config(function($routeProvider){
         templateUrl: "../templates/p4.html",
         controller: "p4Ctrl"
     })
+    .when("/boutique",{
+        templateUrl: "../templates/boutique.html",
+        controller: "boutiqueCtrl"
+    })
+    .when("/boutique/:cat",{
+        templateUrl: "../templates/categorie.html",
+        controller: "categorieCtrl"
+    })
+    .when("/boutique/:cat/:produit",{
+        templateUrl: "../templates/produit.html",
+        controller: "produitCtrl"
+    })
     .otherwise({
         redirectTo: "/"
     });
